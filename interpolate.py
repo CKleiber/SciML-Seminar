@@ -47,6 +47,6 @@ def interpolate(model, points: np.array, step_size, name='interpolation.gif'):
         images.append([ax.imshow(decoded_points[i, 0].detach().numpy(), cmap='gray', animated=True)])
 
     anim = animation.ArtistAnimation(fig, images, interval=200, blit=True, repeat_delay=1000)
-    anim.save(name, writer='imagemagick')
+    anim.save('gifs/' + name, writer='imagemagick')
 
     return anim
