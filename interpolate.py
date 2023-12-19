@@ -4,7 +4,7 @@ from matplotlib import animation as animation
 import matplotlib.pyplot as plt
 
 
-def interpolate(model, points: np.array, step_size, name='interpolation.gif'):
+def interpolate(model, points: np.array, step_size, name='interpolation.gif', cartoon=False):
     # interpolate between points in the latent space with a given step size
     interpolated_points = []
     current_point = 0
@@ -43,8 +43,16 @@ def interpolate(model, points: np.array, step_size, name='interpolation.gif'):
 
     images = []
 
-    for i in range(decoded_points.shape[0]):
-        images.append([ax.imshow(decoded_points[i, 0].detach().numpy(), cmap='gray', animated=True)])
+    if not cartoon:
+        for i in range(decoded_points.shape[0]):
+            images.append([ax.imshow(decoded_points[i, 0].detach().numpy(), cmap='gray', animated=True)])
+
+    # if cartoon, append coloured images
+    else:
+        for i in range(decoded_points.shape[0]):
+            # Assuming decoded_points have shape (batch_size, num_channels, height, width)
+            images.append([ax.imshow(np.transpose(decoded_points[i].detach().numpy(), (1, 2, 0)), animated=True)])
+        
 
     anim = animation.ArtistAnimation(fig, images, interval=200, blit=True, repeat_delay=1000)
     anim.save('gifs/' + name, writer='imagemagick')
