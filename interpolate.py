@@ -33,7 +33,7 @@ def interpolate(model, points: np.array, step_size, name='interpolation.gif', ca
             else:
                 break
 
-    interpolated_points = torch.Tensor(interpolated_points)
+    interpolated_points = torch.Tensor(np.array(interpolated_points))
 
     # decode the interpolated points
     decoded_points = model.decoder(interpolated_points)
