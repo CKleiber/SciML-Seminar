@@ -43,6 +43,7 @@ def interpolate(model, points: np.array, step_size, name='interpolation.gif', ca
 
     images = []
 
+    # append images
     if not cartoon:
         for i in range(decoded_points.shape[0]):
             images.append([ax.imshow(decoded_points[i, 0].detach().numpy(), cmap='gray', animated=True)])
